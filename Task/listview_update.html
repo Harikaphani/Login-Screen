@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>ListView</title>
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link rel="stylesheet" href="css/mobiscroll.jquery.min.css">
+    <script src="js/mobiscroll.jquery.min.js"></script>
+
+    <style type="text/css">
+
+    .demo-main-cont.demo-comp-listview { padding: 0; }
+    .demo-comp-listview .demo-note { margin: 10px; }
+    ul li div{
+        opacity: 0 !important;
+    }
+    .mbsc-ios.mbsc-page {
+        background: #FAFAFA;
+    }
+    .mbsc-lv-ic-c,
+    .mbsc-lv-ic-s,
+    .mbsc-lv-ic-text{
+        opacity: 1 !important;
+    }
+    .header{
+        color: #fff;
+        background: #0578C8;
+        padding: 20px 0px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .mbsc-lv-ios .mbsc-lv-item{
+        background: #FAFAFA;
+        position: relative;
+        padding-left: 50px;
+    }
+    .left{
+        padding-top: 3px;
+    }
+    img{
+        position: absolute;
+        top: 12px;
+        left: 10px;
+        width: 30px;
+    }
+    .mbsc-lv-ios .mbsc-lv-item:before, .mbsc-lv-ios .mbsc-lv-item:after{
+        left: 0;
+    }
+    </style>
+
+</head>
+<body>
+
+<div mbsc-page class="demo-update">
+    <div class="header">
+        <a href="index.html"><img class="left" src="images/left.png" /></a>List View
+    </div>
+    
+    <ul id="demo" class="md-wo-list" style="display:none">
+        <li data-id="1"><img class="img" src="images/diamond.png" />Example 1
+        </li>
+        <li data-id="2"><img class="img" src="images/diamond.png" />Example 2
+        </li>
+        <li data-id="3"><img class="img" src="images/diamond.png" />Example 3
+        </li>
+        <li data-id="4"><img class="img" src="images/diamond.png" />Example 4
+        </li>
+        <li data-id="5"><img class="img" src="images/diamond.png" />Example 5
+        </li>
+        <li data-id="6"><img class="img" src="images/diamond.png" />Example 6
+        </li>
+        <li data-id="7"><img class="img" src="images/diamond.png" />Example 7
+        </li>
+        <li data-id="8"><img class="img" src="images/diamond.png" />Example 8
+        </li>
+        <li data-id="9"><img class="img" src="images/diamond.png" />Example 9
+        </li>
+        <li data-id="10"><img class="img" src="images/diamond.png" />Example 10
+        </li>
+        <li data-id="11"><img class="img" src="images/diamond.png" />Example 11
+        </li>
+        <li data-id="12"><img class="img" src="images/diamond.png" />Example 12
+        </li>
+        <li data-id="13"><img class="img" src="images/diamond.png" />Example 13
+        </li>
+        <li data-id="14"><img class="img" src="images/diamond.png" />Example 14
+        </li>
+        <li data-id="15"><img class="img" src="images/diamond.png" />Example 15
+        </li>
+    </ul>
+</div>
+
+<script>
+    mobiscroll.settings = {
+        theme: 'ios',
+        lang: 'en'
+    };
+
+    $(function () {
+    
+        var ids = 6;
+    
+        // Mobiscroll Listview initialization
+        $('#demo').mobiscroll().listview({
+            theme: 'ios',       // Specify theme like: theme: 'ios' or omit setting to use default
+            lang: 'en',         // Specify language like: lang: 'pl' or omit setting to use default
+            display: 'inline',  // Specify display mode like: display: 'bottom' or omit setting to use default
+            sortable: true,     // More info about sortable: https://docs.mobiscroll.com/4-0-0_beta2/listview#opt-sortable
+            iconSlide: true,    // More info about iconSlide: https://docs.mobiscroll.com/4-0-0_beta2/listview#opt-iconSlide
+            striped: true,      // More info about striped: https://docs.mobiscroll.com/4-0-0_beta2/listview#opt-striped
+            stages: [{          // More info about stages: https://docs.mobiscroll.com/4-0-0_beta2/listview#opt-stages
+                percent: 25,
+                color: 'crimson',
+                icon: 'checkmark',
+                text: 'Complete',
+                action: function (event, inst) {
+                    $('.md-wo-status', event.target).text('Completed');
+                }
+            }, {
+                percent: -25,
+                color: 'red',
+                icon: 'remove',
+                text: 'Delete',
+                confirm: true,
+                action: function (event, inst) {
+                    inst.remove(event.target);
+                    return false;
+                }
+            }, {
+                percent: 50,
+                color: 'green',
+                icon: 'plus',
+                text: 'Spawn',
+                undo: true,     // More info about undo: https://docs.mobiscroll.com/4-0-0_beta2/listview#methods-undo
+                action: function (event, inst) {
+                    inst.add(++ids, 'Work order #000' + ids + ' created from WO #000' + $(event.target).attr('data-id') + '<div class="md-wo-status">Assigned</div>', event.index + 1);
+                }
+            }]
+        });
+    });
+</script>
+
+</body>
+</html>
